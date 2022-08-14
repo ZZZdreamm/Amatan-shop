@@ -1,0 +1,125 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+<style>
+    .userMenu{
+        background:white;
+        position:relative;
+    }
+    .loggedUserMenu{
+        background:white;
+        height:40px;
+        border:0;
+        
+    }
+    .expandedMenu{
+        position:absolute;
+        top:100%;
+        right:0;
+        width:320px;
+        height:200px;
+        overflow-y:scroll;
+        background:white;
+        z-index:2;
+        display:none;
+        border:black solid 2px;
+        text-align:center;
+    }
+    
+    .loginLink{
+        position:absolute;
+        top:40%;
+        left:25%;
+        width:160px;
+        height:60px;
+        text-align:center;
+        font-size:30px;
+        color:white;
+        background:orange;
+        margin-bottom:10px;
+    }
+    .registerLink{
+        position:absolute;
+        bottom:15%;
+    }
+    .welcomeText{
+        position:absolute;
+        left:13%;
+        margin-bottom:15px;
+    }
+    .logoutForm{
+        position:absolute;
+        bottom:0;
+        height:45px;
+        width:100%;
+        text-align:center;
+         
+    }
+    .logoutButton{
+        color:lightseagreen;
+        position:absolute;
+        left:45%;
+
+    }
+    .myAccountLook{
+        position:relative;
+        width:100%;
+        padding-right: 16px;
+        padding-top: 16px;
+        padding-left: 16px;
+    }
+    .myAccountLink{
+        width:100%;
+        border-bottom:0.5px grey solid;
+        position:absolute;
+        bottom:45px;
+        color:lightseagreen;
+    }
+    
+    
+</style>
+<ul class="navbar-nav">
+@if (SignInManager.IsSignedIn(User))
+{
+    <li>
+            <div class="nav-link text-dark">
+                <button aria-expanded="false" class="loggedUserMenu">@User.Identity?.Name</button>
+            </div>
+            <div class="expandedMenu">
+                
+                <div class="myAccountLook">
+                    <div>
+                        <h4>Hello @User.Identity?.Name</h4>
+                        <div class="myAccountLink"><a href="/Home/MyAccountView?userName=@User.Identity?.Name">My Account</a></div>
+                    </div>
+                        
+                </div>
+
+
+                <form  class="logoutForm" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button  type="submit" class="nav-link btn btn-link text-dark logoutButton">Logout</button>
+                </form>
+                
+            </div>
+    </li>
+}
+else
+{       <li>
+               <div class="nav-link text-dark">
+                   <button aria-expanded="false" class="loggedUserMenu">My Amazom</button>
+               </div>
+               <div class="expandedMenu">
+                   <div class="menuContent">
+                       <div class="welcomeText">
+                       <h4>Welcome in Amazom!</h4>
+                       We are glad to see you here!
+                       </div>
+                       <div class="loginLink"><a href="/Identity/Account/Login">Login</a></div>
+                       <div class="registerLink">You still don't have account? <a href="/Identity/Account/Register">Register here</a></div>
+                   </div>
+               </div>
+        </li>
+}
+</ul>
+
+

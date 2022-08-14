@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Shop.Models.ItemModel>
+@using Shop.Controllers;
+
+ <h1 class="Title">Your Cart</h1>
+<div class="CartItems">
+    @{
+        if (Model.Count() > 0) 
+        {
+            
+                foreach (var item in Model) 
+                {
+                    int maxValue = item.ItemsOnStock;
+                                                            <div class="invisible @item.Id" id="@item.Id"></div>
+                    
+                                                                                    <div>
+                                                                            @{if (item.Checked == true)
+                        {
+                                                                                                                                                    <input type="checkbox" checked="checked" class ="itemCheckbox" id="@item.Id" value="@item.Id" name="Item @item.Id">
+                        }
+
+                                else
+                                {
+                                                                                                                                                    <input type="checkbox" class ="itemCheckbox" id="@item.Id" value="@item.Id" name="Item @item.Id">
+                                }
+                                                                            }
+
+                                                                                                
+                                                                                              
+                                                                                                 <div></div>                                                     
+                                                                                                <div>
+                                                                                                        <img src="@item.Image">
+                                                                                                        <span>          </span>
+                                                                                                </div>
+                                                                                               <div>
+                                                                                                    @Html.DisplayFor(modelItem => item.Name)
+                                                                                                    <span>          </span>
+                                                                                                </div>
+                                                                                                    @Html.DisplayFor(modelItem => item.Price)
+                                                                                                
+                                                                                            
+
+                                                                                             <div class="itemAmount">
+                                                                                                
+                                                                                                <button class="btn btn-warning deleteButton" id="@item.Id">Delete item</button>
+                                                                                               
+                                                                                                <div id="MinusLabel">
+                                                                                                    <button><img src="~/img/minus.png"  class="SubstractNumberInCart" id="@item.Id" ></button>
+                                                                                                </div>
+                                                                          
+                                                                         
+                                                                         
+
+                                                                                                    <div class="Amount @item.Id" id="@item.Id">
+                                                                                                        <input class="AmountOfNumbersInput" id="AmountOfNumbersInputIdCart @item.Id" name="@item.Id" type="number" value="@item.ItemsTaken" min="0" max="@maxValue">
+                                                                                                    </div>
+
+                                                                                                <div id="PlusLabel">
+                                                                                                    <button><img src="~/img/plus.png" class="IncrementNumberInCart" id="@item.Id"></button>
+                                                                                                </div>
+
+                                                                         
+                                                                                                <div class="itemsTaken @item.Id" id="@item.Id">
+                                                                                                    <label class="ItemsTakenLabel">@item.ItemsTaken from @maxValue</label>
+                                                                                                </div>
+                                                                                            </div>
+                                                                        </div>
+                }   
+                 
+           
+        }
+        else
+        {
+                                                                                                                                                            <div class="mes">Your Cart is empty</div>
+        }
+
+        
+     }
+            
+</div>

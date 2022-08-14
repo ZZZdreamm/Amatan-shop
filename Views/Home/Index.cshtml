@@ -1,0 +1,239 @@
+﻿@model IEnumerable<Shop.Models.ItemModel>
+@using Shop.Controllers;
+<style>
+	.CategoryForm{
+		position:relative;
+		left:-7.2%;
+		width:22%;
+		height:540px;
+		background-color:white;
+	}
+	.categoriesHeader{
+		width:100%;
+		text-align:center;
+		
+	}
+	.CategoryType{	
+		position:absolute;
+		width:60%;
+		left:22%;
+		background-color:darkorange;
+
+	}
+	.displayExampleItemsForm{
+		position:absolute;
+		right:0;
+		bottom:10%;
+		width:31%;
+		height:55%;
+		overflow-x:hidden;
+		background-color:white;
+		
+
+	}
+	.itemPlace{
+		position:relative;
+		border:solid black;
+		height:33.33%;
+		width:100%;
+		
+	}
+	.itemImage{
+		position:absolute;
+		left:0%;
+		height:100%;
+		width:40%;
+	}
+	.itemTextDiv{
+		position:absolute;
+		left:45%;
+		
+	}
+	.displayExampleItemsTitle{
+		position:absolute;
+		right:0;
+		top:15%;
+	}
+	.showItemAnchor{
+		width:100%;
+		height:100%;
+	}
+	.itemTextDiv:hover{
+			color:blue;
+			cursor: pointer;
+	}
+	.ScrollForm{
+		position:absolute;
+		height:40px;
+		width:40px;
+		top:50%;
+		right:10%;
+		display:block;
+	}
+	.adsBlock{
+		position:absolute;
+		left:20%;
+		top:13.5%;
+		width:47.5%;
+		height:40%;
+		background:white;
+	}
+	.showAdImage{
+		position:absolute;
+		top:0;
+		width:100%;
+		height:73%;
+	}
+	.chooseAdTable{
+		position:absolute;
+		bottom:0;
+		width:100%;
+		height:27%;
+		display:flex;
+	
+	}
+	.adButtonBlock{
+		width:16.6%;
+		height:100%;
+		text-align:center;
+		background:black;
+	
+	}
+	.adButton{
+		
+		width:100%;
+		height:100%;
+	}
+	.checkThoseItemsBlock{
+		position:absolute;
+		left:20%;
+		top:57.5%;
+		width:47.5%;
+		height:30%;
+		background:white;
+	}
+	.helloUserBlock{
+		position:absolute;
+		right:0;
+		top:13.5%;
+		width:31%;
+		height:20%;
+		
+		background-color:white;
+	}
+	.extraCheapItemsLink{
+		position:absolute;
+		height:70%;
+		width:100%;
+		font-size:20px;
+	}
+	.extraCheapItemsImage{
+		height:100%;
+		width:35%;
+	}
+
+	
+</style>
+
+<div class="CategoryForm">
+	
+	<h2 class="categoriesHeader">Categiores</h2>
+	<a class="btn CategoryType" href="~/Home/SearchForItemByCategory?searchTerm=Mitsubishi" >Mitsubishi</a>
+	
+	<br />
+	<br />
+	<a class="btn CategoryType" href="~/Home/SearchForItemByCategory?searchTerm=Chevrolet" >Chevrolet</a>
+	
+	<br />
+	<br />
+		<a class="btn CategoryType" href="~/Home/SearchForItemByCategory?searchTerm=Toyota" >Toyota</a>
+
+	<br />
+	<br />
+	<a class="btn CategoryType" href="~/Home/SearchForItemByCategory?searchTerm=Ford" >Ford</a>
+	
+	<br />
+	<br />
+		<a class="btn CategoryType" href="~/Home/SearchForItemByCategory?searchTerm=Audi" >Audi</a>
+	<br />
+	<br />
+		<a class="btn CategoryType" href="~/Home/SearchForItemByCategory?searchTerm=Suzuki" >Suzuki</a>
+    
+</div>
+
+
+
+<div class="adsBlock">
+	<div class="adImageHolder">
+		<img class="showAdImage" src="@HomeController.AdsList[0].AdImageURL"/>
+	</div>
+	<div class="chooseAdTable">
+		@for (int i = 0; i < 6; i++)
+		{
+			<div class="adButtonBlock" id="@i">
+				<button class="adButton">@HomeController.AdsList[i].AdTitle</button>
+			</div>
+		}
+	</div>
+</div>
+
+
+<div class="checkThoseItemsBlock">
+	
+</div>
+
+
+
+<div class="helloUserBlock">
+	<h3>Hello @User.Identity?.Name!</h3>
+	<a class="extraCheapItemsLink" href=""><img class="extraCheapItemsImage" src="/img/cheap.png"/>Check our extra cheap items</a>
+	
+</div>
+
+<div class="displayExampleItemsForm" id="displayExampleItemsForm1">
+	
+	
+	@{
+		for (var i = 0; i < 10; i++)
+		{
+			Random rand = new Random();
+			int randomItemId = rand.Next(0, 1000);
+			
+																																																												<div class="itemPlace" id="@randomItemId">
+																																																																																																				
+																																																																																																																							
+																																																													<img class="img itemImage" src="@Model.ElementAt(randomItemId).Image">
+																																																																																																																									
+
+																																																													<div onclick="ShowItem(@randomItemId)" class="itemTextDiv">
+
+																																																																																																																								
+																																																														<div class="NameDiv">
+																																																															@Html.DisplayFor(modelItem => Model.ElementAt(randomItemId).Name)
+																																																														</div>
+
+																																																														<div class="DescriptionDiv">
+																																																															@Html.DisplayFor(modelItem => Model.ElementAt(randomItemId).Description)
+																																																														</div>
+
+																																																														<div class="PriceDiv">
+																																																															Price: @Html.DisplayFor(modelItem => Model.ElementAt(randomItemId).Price) $
+																																																														</div>
+
+
+																																																													</div>
+
+																																																												</div>
+		}
+
+	}
+</div>
+
+<script>
+function ShowItem(id) {
+	
+     window.open("Home/ShowItemView?id=" + id,"_self");
+      
+
+}
+</script>
